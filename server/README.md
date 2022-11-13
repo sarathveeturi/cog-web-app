@@ -1,6 +1,6 @@
 ## Flow Diagram for COG image storage
 
-![flow diagram](images/cog_web_app_architecture.png)
+![flow diagram](images/backend-architecture.jpg)
 
 ###### Prequisites
 * Public S3 Bucket setup
@@ -11,17 +11,17 @@
 
 - Following steps should let you run the server from local machine
 
-1. `git checkout dev`
+1. `git checkout main` or simply clone the repository
 
 2. Go to root i.e. `cd /server`
 
 3. From root, initiate the Docker Compose file to spin up PostgreSQL DB and Adminer service. TO do this run
-    ` docker-compose up -d`  *This runs the containers in detached mode*
+    ` docker-compose up -d`  *This runs the containers in detached mode. I recommed the tag `-d` be removed to check the server logs*
 
 4. Once the docker-compose is up and running you can check the service at `localhost://8080` and enter the following details in Adminer
 
    **POSTGRES_USER: docker**
-   **POSTGRES_PASSWORD: hatfield**
+   **POSTGRES_PASSWORD: YOUR SET PASSWORD**
    **POSTGRES_DB: cogdb**
 
    > These details can also be found in the `docker-compose.yaml` file.
@@ -54,7 +54,6 @@
 > The app can be accessed at `http://localhost:8000/docs` or another port depending the value of port mapped
 
 # Initiate the database
-
 create table "cogdb_table";
 ALTER TABLE "cogdb_table"
 ADD "id" serial NOT NULL,
@@ -65,10 +64,3 @@ ADD "image_crs" character varying(500) NOT NULL,
 ADD "image_bounds" character varying(500) NOT NULL;
 COMMENT ON TABLE "cogdb_table" IS '';
 
-# Test COGs
-
-321MB https://opendata.digitalglobe.com/events/mauritius-oil-spill/post-event/2020-08-12/105001001F1B5B00/105001001F1B5B00.tif
-221KB https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/34/S/GA/2020/3/S2A_34SGA_20200301_0_L2A/L2A_PVI.tif
-  https://rasterupload.blob.core.windows.net/cog-raster-files/L2A_PVI.tif
-5.1MB https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/34/S/GA/2020/3/S2A_34SGA_20200301_0_L2A/B01.tif
-170MB https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/34/S/GA/2020/3/S2A_34SGA_20200301_0_L2A/B02.tif
